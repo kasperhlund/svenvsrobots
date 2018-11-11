@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8"/>
+    <title>Sven Vs Robots</title>
+    <link rel="stylesheet" href="style/style.css"/>
+    <script src="js/libs/jquery-1.12.1.js"></script>
+    <script src="js/libs/jquery.event.move.js"></script>
+    <script src="js/libs/jquery.event.swipe.js"></script>
+    <script src="js/libs/libjsca.js"></script>
+    <script src="js/libs/howler.js"></script>
+    <script src="js/libs/astar.js"></script>
+    <script src="js/libs/FileSaver.min.js"></script>
+    <script src="js/de.js"></script>
+    <script src="js/assets.js"></script>
+    <script src="js/worldObject.js"></script>
+    <script src="js/worldRenderer.js"></script>
+    <script src="js/screens/worldScreen.js"></script>
+    <script src="js/screens/optionsScreen.js"></script>
+    <script src="js/screens/dialogScreen.js"></script>
+    <script src="js/screens/aboutScreen.js"></script>
+    <script src="js/screens/selectSetScreen.js"></script>
+    <script src="js/screens/selectLevelScreen.js"></script>
+    <script src="js/screens/titleScreen.js"></script>
+    <script src="js/screens/setEditorScreen.js"></script>
+    <script src="js/screens/levelEditorScreen.js"></script>
+</head>
+<body>
+<div id="gameSection">
+    <canvas id="myCanvas" width="640" height="480">.</canvas>
+    <div id="titleScreen" class="screen spaceBackground">
+        <div class="titleLogoDiv">
+            <img src="data/graphics/title.png" id="titleScreenGraphics">
+        </div>
+        <div class="titleLogoDiv">
+            <p><button id="titleScreenStartButton" class="niceButton">Start</button></p>
+            <p><button id="titleScreenOptionsButton" class="niceButton">Options</button></p>
+            <p><button id="titleScreenCreditsButton" class="niceButton">About</button></p>
+            <p><button id="titleScreenEditButton" class="niceButton">Editor</button></p>
+        </div>
+    </div>
+    <div id="optionsScreen" class="screen spaceBackground">
+        <div class="headerDiv">
+            <div class="navigationItem">
+                <img id="optionsScreenBackImg" class="headerBack" src="data/graphics/control_panel/back.png">
+            </div>
+            <p class="menuHeader">Options</p>
+        </div>
+        <div>
+            <p class="optionsScreenOption"><input type="checkbox" id="optionsScreenMusic" value="Music"> Music</p>
+            <p class="optionsScreenOption"><input type="checkbox" id="optionsScreenSoundEffects" value="SoundEffects"> Sound effects</p>
+            <p class="optionsScreenOption"><input type="checkbox" id="optionsScreenEditor" value="Editor"> Show editor (advanced)</p>
+        </div>
+    </div>
+    <div id="aboutScreen" class="screen spaceBackground">
+        <div class="headerDiv">
+            <div class="navigationItem">
+                <img id="aboutScreenBackImg" class="headerBack" src="data/graphics/control_panel/back.png">
+            </div>
+            <p class="menuHeader">About</p>
+        </div>
+        <div id="aboutScreenText">
+            <p><b>Version</b> <span id="aboutScreenTextVersion"></span></p>
+            <p><b>By</b> <a href="http://ramnorok.se" target="_blank">Kasper Höglund</a></p>
+            <p><span>Send levels to: <a href="mailto:kasper.hoglund@ramnorok.se">kasper.hoglund@ramnorok.se</a></span></p>
+            <p><b>Game art</b> Mattias Guhl</p>
+            <p>Additional levels by MM & Rasem</p>
+            <br>
+            <p><b>Using</b></p>
+            <div id="aboutScreenTextUsing">
+                <p><a href='https://jquery.com/' target='_blank'>jQuery</a>, <a href='https://github.com/stephband/jquery.event.swipe' target='_blank'>Swipe plugin</a>, <a href='https://github.com/stephband/jquery.event.move' target='_blank'>Move plugin</a></p>
+                <p><a href='https://github.com/goldfire/howler.js' target='_blank'>Howler.js</a></p>
+                <p><a href='https://github.com/bgrins/javascript-astar' target='_blank'>A*</a></p>
+                <p><a href="https://github.com/eligrey/FileSaver.js" target="_blank">FileSaver.js</a></p>
+            </div>
+        </div>
+    </div>
+    <div id="selectSetScreen" class="screen levelMenuScreen spaceBackground">
+        <div class="headerDiv">
+            <div class="navigationItem">
+            <img id="selectSetScreenBackImg" class="headerBack" src="data/graphics/control_panel/back.png">
+            </div>
+            <p class="menuHeader">Select World</p>
+        </div>
+        <div>
+            <div id="selectSetLeftDiv" class="navigationItem">
+            <img src="data/graphics/control_panel/left.png">
+            </div>
+            <div id="selectSetRightDiv" class="navigationItem">
+                <img src="data/graphics/control_panel/right.png">
+            </div>
+         </div>
+        <div id="selectSetWorldDiv">
+            <button id="selectSetButton">
+                <p id="selectSetNameP"></p>
+                <p id="selectSetCommentP"></p>
+                <p id="selectSetAuthorP"></p>
+                <p id="selectSetCompletedP"></p>
+            </button>
+        </div>
+        <div id="selectSetToolsDiv">
+            <!-- Hide the default file input button -->
+            <input id="selectSetImportInput" type="file" accept=".svenlevel" style="display: none;"/>
+            <button id="selectSetImportButton" class="niceButton">Import</button>
+            <button id="selectSetDeleteButton" class="niceButton">Delete</button>
+        </div>
+    </div>
+    <div id="selectLevelScreen" class="screen levelMenuScreen spaceBackground">
+        <div class="headerDiv">
+            <img id="selectLevelScreenBackImg" class="headerBack" src="data/graphics/control_panel/back.png">
+            <p id="selectLevelScreenHeaderP" class="menuHeader">Name of Set</p>
+        </div>
+        <div id="selectLevelListDiv">
+        </div>
+    </div>
+    <div id="worldScreen" class="screen">
+        <div id="worldControlPanelDiv">
+                <img src="data/graphics/control_panel/back.png" class="worldControlPanelItem" id="worldControlPanelBackImg">
+                <img src="data/graphics/control_panel/refresh.png" class="worldControlPanelItem" id="worldControlPanelRefreshImg">
+                <img src="data/graphics/control_panel/info.png" class="worldControlPanelItem" id="worldControlPanelInfoImg">
+        </div>
+    </div>
+    <div id="dialogScreen" class="screen spaceBackground">
+        <div id="dialogDiv">
+            <div id="dialogTextDiv">
+            </div>
+            <div id="dialogControlDiv">
+                <button id="dialogOkButton" class="niceButton">Ok</button>
+                <button id="dialogCancelButton" class="niceButton">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <div id="setEditorScreen" class="screen">
+        <div id="setEditorLeftPanelDiv">
+            <button id="setEditorLeftPanelClearButton">Clear</button>
+            <button id="setEditorLeftPanelSaveButton">Save</button>
+            <!-- Hide the default file input button -->
+            <input id="dialogLoadFileInput" type="file" accept=".svenlevel" style="display: none;"/>
+            <input id="dialogLoadFileButton" type="button" value="Load" />
+            <button id="setEditorLeftPanelExitButton">Exit</button>
+        </div>
+        <div id="setEditorTopPanelDiv">
+                <p id="setEditorNameP">set name</p>
+                <p>By <span id="setEditorAuthorSpan">set author</span></p>
+                <p>Comment <span id="setEditorCommentSpan">set comment</span></p>
+                <p>Id <span id="setEditorIdSpan">set Id</span></p>
+                <br />
+                <button id="setEditorTopPanelEditButton">Edit details...</button>
+                <button id="setEditorTopPanelNewUuidButton">New Id</button>
+                <hr>
+            <p>
+            <select id="setEditorLevelSelect">
+            </select>
+            </p>
+            <p>
+                <button id="setEditorAddLevelButton" class="setEditorLevelButton">Add Level</button>
+                <button id="setEditorEditLevelButton" class="setEditorLevelButton">Edit Level</button>
+                <button id="setEditorLevelMoveUp" class="setEditorLevelButton">Move Up</button>
+                <button id="setEditorLevelMoveDown" class="setEditorLevelButton">Move Down</button>
+                <button id="setEditorRemoveLevelButton" class="setEditorLevelButton">Remove Level</button>
+            </p>
+        </div>
+    </div>
+    <div id="levelEditorScreen" class="screen">
+        <div id="levelEditorObjectDiv">
+            <span id="levelEditorObjectSelectedSpan"></span>
+            <span data-type="Player" class="inGameObjectPlayer"></span>
+            <span data-type="Goal" class="inGameObjectGoal"></span>
+            <span data-type="BounceRobot" class="inGameObjectBounceRobot"></span>
+            <span data-type="TargetRobot" class="inGameObjectTargetRobot"></span>
+            <span data-type="TowerRobot" class="inGameObjectTowerRobot"></span>
+            <span data-type="HulkRobot" class="inGameObjectHulkRobot"></span>
+            <span data-type="Door" class="inGameObjectDoor"></span>
+            <span data-type="Switch" class="inGameObjectSwitch"></span>
+            <span data-type="Button" class="inGameObjectButton"></span>
+            <span data-type="Box" class="inGameObjectBox"></span>
+            <span data-type="Wall" class="inGameObjectWall"></span>
+            <span data-type="Hole" class="inGameObjectHole"></span>
+            <span data-type="Rainbow" class="inGameObjectRainbow"></span>
+            <span data-type="Floor" class="inGameObjectFloor"></span>
+        </div>
+        <div id="levelEditorControlDiv">
+            <button id="levelEditorControlPlayButton">Play</button>
+            <button id="levelEditorControlExitButton">Exit</button>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

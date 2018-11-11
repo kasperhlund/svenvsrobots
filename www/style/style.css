@@ -1,0 +1,428 @@
+#gameSection {
+    position: relative;
+    background-color: #f8f8ff;
+    border-style: ridge;
+    border-width: 1px;
+    width: 640px;
+    height: 480px;
+}
+
+canvas {
+    position: relative;
+    -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+}
+
+div {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* IE/Edge */
+    user-select: none;
+}
+
+
+.spaceBackground {
+    background-image:url("../data/graphics/menu_background.png");
+}
+
+.hidden {
+    display: none;
+}
+
+
+@keyframes titleFade {
+    from {background-color: whitesmoke;}
+    to {background-color: #11171e;}
+}
+
+#titleScreenGraphics {
+
+    background-color: #11171e;
+    animation-name: titleFade;
+    animation-duration: 2s;
+}
+
+.screen {
+    display: none; /* A screen is only to be displayed via call to libjsca.CanvasApplication.setApplicationScreen */
+    /* Is absolute to sit on top of canvas */
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.menuHeader {
+    font-family: Arial;
+    font-size: 42px;
+    color: #709ad1;
+    text-shadow: 2px 2px #a3c9ff;
+    margin-top: 10px;
+    margin-left: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.dialogHeader {
+    font-family: Arial;
+    font-size: 42px;
+    color: darkblue;
+    text-shadow: 2px 2px #a3c9ff;
+    margin-top: 10px;
+    margin-left: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Main menu*/
+.titleLogoDiv {
+    padding: 5px;
+    text-align: center;
+    height: 50%;
+}
+
+.niceButton {
+    background: linear-gradient(black, darkblue);
+    width: 40%;
+    margin: 3px;
+    border-radius: 8px;
+    border-width: 1px;
+    font-family: monospace;
+    font-size: 16px;
+    padding: 4px;
+    font-weight: bold;
+    color: papayawhip;
+    text-shadow: 0.1em 0.1em 0.2em #2f4f4f;
+    cursor: pointer;
+}
+
+.headerDiv {
+    height: 15%;
+    text-align: center;
+}
+
+#worldControlPanelDiv {
+/*    background: #11171e;  */
+    height: 70%;
+    width: 8%;
+    padding-top: 5px;
+}
+
+.worldControlPanelItem {
+    width: 100%;
+    cursor: pointer;
+}
+
+.worldControlPanelItem:active {
+    background: darkslategrey;
+}
+
+#dialogDiv {
+    margin: 5px auto;
+    font-family: monospace;
+    padding: 5px;
+    width: 70%;
+    height: 90%;
+    background: linear-gradient(gray, lightgrey);
+    border-style: outset;
+    border-width: 2px;
+    -moz-box-shadow:    3px 5px 6px #2e2e2e;
+    -webkit-box-shadow: 3px 5px 6px #2e2e2e;
+    box-shadow:         3px 5px 6px #2e2e2e;
+}
+
+#dialogTextDiv {
+    height: 88%;
+    padding-top: 2%;
+    /*overflow-y: scroll;*/
+}
+
+#dialogControlDiv {
+    height: 10%;
+    text-align: center;
+}
+
+.headerBack {
+    float: left;
+    cursor: pointer;
+}
+
+.headerBack:active {
+    background: darkslategrey;
+}
+
+
+#levelEditorObjectDiv {
+    background: #11171e;
+    width: 100%;
+    height: 10%;
+}
+
+#levelEditorControlDiv {
+    background: #11171e;
+    float: left;
+    width: 10%;
+    height: 90%;
+
+}
+
+
+#levelEditorSizeDiv {
+    background: #11171e;
+    color: #e9f2ff;
+    margin-left: 6%;
+    height: 90%;
+    visibility: hidden;
+}
+
+p {
+    margin: 0;
+}
+
+#levelEditorObjectDiv span {
+    background-image: url("../data/graphics/game_sprites.png");
+    background-size: 500px;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    margin: 2px;
+    cursor: pointer;
+}
+
+#levelEditorHulkRobotSequenceTextArea {
+    overflow-y: scroll;
+    background: black;
+    color: forestgreen;
+    font-family: monospace;
+    max-height: 100px;
+    min-height: 100px;
+}
+
+
+.inGameObjectDoor {
+    background-position: -245px 0px;
+    width: 20px;
+    height: 20px;
+}
+
+.inGameObjectWall {
+    background-position: -70px 0px;
+}
+.inGameObjectSwitch {
+    background-position: 0px -140px;
+}
+.inGameObjectBounceRobot {
+    background-position: -140px -35px;
+    width: 20px;
+    height: 20px;
+}
+.inGameObjectTargetRobot {
+    background-position: 0px -35px;
+}
+
+.inGameObjectTowerRobot {
+    background-position: -105px -35px;
+}
+
+.inGameObjectHole {
+    background-position: 0px -245px;
+}
+
+.inGameObjectGoal {
+    background-position: -210px -35px;
+}
+
+.inGameObjectBox {
+    background-position: -35px 0px;
+}
+
+.inGameObjectRainbow {
+    background-position: -0px -280px;
+}
+
+
+.inGameObjectFloor {
+    background-position: 0px 0px;
+}
+
+.inGameObjectPlayer {
+    background-position: 0px -70px;
+}
+
+.inGameObjectHulkRobot {
+    background-position: 0px -175px;
+}
+
+.inGameObjectButton {
+    background-position: -210px 0px;
+}
+
+
+
+
+#levelEditorObjectSelectedSpan {
+    float: right;
+    cursor: auto !important;
+}
+
+#levelEditorControlDiv button {
+    margin-left: 5px;
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 80%;
+    background-color:#7c8793;
+    border-radius: 4px;
+    border-width: 1px;
+    font-family: monospace;
+    font-size: 12px;
+    cursor: pointer;
+    color: #2f4f4f;
+}
+
+
+#selectSetLeftDiv {
+    margin-top: 40px;
+    float: left;
+    cursor: pointer;
+}
+
+#selectSetRightDiv {
+    margin-top: 40px;
+    float: right;
+    cursor: pointer;
+}
+
+#selectSetWorldDiv {
+    margin-left: 0%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#selectSetWorldDiv button {
+    border-radius: 8px;
+    background: linear-gradient(darkblue, darkslateblue);
+    cursor: pointer;
+    color: whitesmoke;
+    width: 60%;
+}
+
+#selectSetNameP {
+    font-weight: bolder;
+    margin-bottom: 5px;
+}
+
+#selectSetToolsDiv {
+    position: absolute;
+    bottom: 0;
+    margin-left: 20px;
+    height: 64px;
+    width: 50%;
+}
+
+#selectLevelListDiv {
+    padding: 10px;
+    height: 60%;
+}
+
+.levelItem {
+    margin: 10px;
+    border-radius: 5px;
+    width: 10%;
+    height: 20%;
+    background: linear-gradient(darkgreen, lawngreen);
+    color: #fffaf0;
+    font-size: 100%;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+.unfinishedLevelItem {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background: linear-gradient(lightgrey, darkslategrey);
+    color: #fffaf0;
+}
+
+/*
+#setEditorScreen {
+    background: #11171e;
+}
+*/
+
+#setEditorLeftPanelDiv {
+    float: left;
+    width: 10%;
+    height: 100%;
+    background: #11171e;
+}
+
+#setEditorTopPanelDiv {
+    width: 100%;
+    height: 50%;
+    background: #11171e;
+}
+
+#setEditorTopPanelDiv p {
+    color: #709ad1;
+}
+
+.navigationItem:active {
+    background: darkslategrey;
+}
+
+.optionsScreenOption {
+    margin-left: 16px;
+    color: floralwhite;
+    font-family: monospace;
+    font-size: 32px;
+}
+
+input[type=checkbox] {
+    /* All browsers except webkit*/
+    transform: scale(1.5);
+
+    /* Webkit browsers*/
+    -webkit-transform: scale(1.5);
+}
+
+#aboutScreenText {
+    margin-left: 16px;
+    color: cornsilk;
+    font-family: monospace;
+    font-size: 24px;
+}
+
+#aboutScreenText b {
+    font-size: 28px;
+    color: darkgray;
+}
+#aboutScreenText span {
+    font-size: 18px;
+}
+
+#aboutScreenTextUsing {
+    font-size: 18px;
+}
+
+a:link {
+    text-decoration: none;
+    color: cornsilk;
+}
+
+a:visited {
+    text-decoration: none;
+    color: cornsilk;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: lightslategrey;
+}
+
+a:active {
+    text-decoration: underline;
+    color: darkorange;
+}
